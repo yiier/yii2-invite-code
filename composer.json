@@ -1,0 +1,21 @@
+{
+    "name": "yiier/yii2-invite-code",
+    "description": "invite code for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","invite code"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "forecho",
+            "email": "caizhenghai@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "yiier\\inviteCode\\": ""
+        }
+    }
+}
