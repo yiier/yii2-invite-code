@@ -16,7 +16,7 @@ class CodeValidator extends Validator
     public function validateAttribute($model, $attribute)
     {
         if (!InviteCode::findOne(['code' => $model->$attribute, 'status' => InviteCode::STATUS_NOT_USE])) {
-            $this->addError($model, $attribute, $attribute . \Yii::t('app', "is can't use"));
+            $this->addError($model, $attribute, \Yii::t('app', 'This invite code is can\'t use'));
         }
     }
 }
