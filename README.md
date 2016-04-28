@@ -25,6 +25,13 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
+**mirage database**
+
+```
+$ php yii migrate --migrationPath=@yiier/inviteCode/migrations/
+```
+
+
 **change config**
  
 change `console\config\main.php`

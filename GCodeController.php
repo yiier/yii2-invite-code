@@ -17,15 +17,16 @@ class GCodeController extends \yii\console\Controller
     {
         $rows = [];
         $time = time();
-        foreach (range(0, $num) as $value) {
+        foreach (range(1, $num) as $value) {
             $rows[$value]['code'] = Yii::$app->security->generateRandomString();
             $rows[$value]['user_id'] = $userId;
             $rows[$value]['created_at'] = $time;
             $rows[$value]['updated_at'] = $time;
         }
-        if (!static::saveAll(InviteCode::tableName(), $rows)) {
+        if (!($count = static::saveAll(InviteCode::tableName(), $rows))) {
             throw new Exception(33007);
         }
+        $this->stdout($count . "\n");
     }
 
     public static function saveAll($tableName, $rows = [])
