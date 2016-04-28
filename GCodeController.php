@@ -1,16 +1,15 @@
 <?php
-
+/**
+ * author     : forecho <caizhenghai@gmail.com>
+ * createTime : 2016/4/27 16:46
+ * description:
+ */
 namespace yiier\inviteCode;
 
 use yii\db\Exception;
 use yiier\inviteCode\models\InviteCode;
 use Yii;
 
-/**
- * author     : forecho <caizh@chexiu.cn>
- * createTime : 2016/4/27 16:46
- * description:
- */
 class GCodeController extends \yii\console\Controller
 {
 

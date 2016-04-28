@@ -25,7 +25,70 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+**change config**
+ 
+change `console\config\main.php`
 
 ```php
-<?= \yiier\inviteCode\AutoloadExample::widget(); ?>```
+'params' => $params,
+...
+'controllerMap' => [
+    'gcode' => [
+        'class' => 'yiier\inviteCode\GCodeController',
+    ]
+]
+```
+
+**console**
+
+```
+$ php yii gcode 200
+```
+
+or
+
+```
+$ php yii gcode
+```
+
+**change form view `signup.php`**
+
+```php
+// ...
+<?= $form->field($model, 'password')->passwordInput() ?>
+
+<?= $form->field($model, 'inviteCode')->textInput() ?>
+// ...
+```
+
+**change `SignupForm.php`**
+
+```php
+// ...
+public $inviteCode;
+
+
+// ...
+public function rules()
+{
+    return [
+        // ...
+        ['inviteCode', 'required'],
+        ['inviteCode', 'yiier\inviteCode\CodeValidator'],
+    ];
+}
+
+// ...
+public function signup()
+{
+    // ...
+    
+    // return $user->save() ? $user : null;
+    // after change
+    if ($user->save()) {
+        InviteCode::useCode($this->inviteCode, $user->id);
+        return $user;
+    }
+    return null;
+}
+```

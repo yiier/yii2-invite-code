@@ -1,8 +1,13 @@
 <?php
-
+/**
+ * author     : forecho <caizhenghai@gmail.com>
+ * createTime : 2016/4/28 10:30
+ * description:
+ */
 namespace yiier\inviteCode\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%invite_code}}".
@@ -16,6 +21,9 @@ use Yii;
  */
 class InviteCode extends \yii\db\ActiveRecord
 {
+    const STATUS_USE = 1;
+    const STATUS_NOT_USE = 0;
+
     /**
      * @inheritdoc
      */
@@ -50,4 +58,40 @@ class InviteCode extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
+
+    /**
+     * @param null $userId
+     * @return array
+     */
+    public static function getNotUseCode($userId = null)
+    {
+        $model = self::find()->where(['status' => self::STATUS_NOT_USE])->filterWhere(['user_id' => $userId])->all();
+        if ($model) {
+            return ArrayHelper::getColumn($model, 'code');
+        }
+        return [];
+    }
+
+    /**
+     * @param $code
+     * @param $userId
+     * @param int $assignCodeNum
+     * @return int
+     */
+    public static function useCode($code, $userId, $assignCodeNum = 0)
+    {
+        $use = self::updateAll(
+            ['status' => self::STATUS_USE, 'user_id' => $userId, 'updated_at' => time()],
+            ['status' => self::STATUS_NOT_USE, 'code' => $code]
+        );
+        if ($use && $assignCodeNum) {
+            if ($model = self::find()->where(['status' => self::STATUS_NOT_USE, 'user_id' => null])->limit($assignCodeNum)->all()) {
+                $ids = ArrayHelper::getColumn($model, 'id');
+                return self::updateAll(['user_id' => $userId, 'updated_at' => time()], ['id' => $ids]);
+            }
+
+        }
+        return $use;
+    }
+
 }
