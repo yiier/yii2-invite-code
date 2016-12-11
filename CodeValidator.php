@@ -15,7 +15,11 @@ class CodeValidator extends Validator
 {
     public function validateAttribute($model, $attribute)
     {
-        if (!InviteCode::findOne(['code' => $model->$attribute, 'status' => InviteCode::STATUS_NOT_USE])) {
+        if ($inviteCode = InviteCode::findOne(['code' => $model->$attribute])) {
+            if ($inviteCode->status == InviteCode::STATUS_USE) {
+                $this->addError($model, $attribute, \Yii::t('app', 'This invite code been used'));
+            }
+        } else {
             $this->addError($model, $attribute, \Yii::t('app', 'This invite code is can\'t use'));
         }
     }
