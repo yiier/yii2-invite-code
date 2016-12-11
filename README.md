@@ -1,5 +1,11 @@
 invite code for Yii2
 ====================
+
+[![Latest Stable Version](https://poser.pugx.org/yiier/yii2-invite-code/v/stable)](https://packagist.org/packages/yiier/yii2-invite-code) 
+[![Total Downloads](https://poser.pugx.org/yiier/yii2-invite-code/downloads)](https://packagist.org/packages/yiier/yii2-invite-code) 
+[![Latest Unstable Version](https://poser.pugx.org/yiier/yii2-invite-code/v/unstable)](https://packagist.org/packages/yiier/yii2-invite-code) 
+[![License](https://poser.pugx.org/yiier/yii2-invite-code/license)](https://packagist.org/packages/yiier/yii2-invite-code)
+
 invite code for Yii2
 
 Installation
